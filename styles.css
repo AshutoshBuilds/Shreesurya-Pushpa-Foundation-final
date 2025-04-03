@@ -142,11 +142,6 @@
     .nav-links a:hover::after {
       width: 100%;
     }
-    
-    .nav-links a:hover {
-      color: var(--primary);
-      text-decoration: underline;
-    }
 
     .nav-links a.active {
       color: var(--primary);
@@ -187,7 +182,7 @@
 }
     
     .donate-btn {
-      background-color: var(--primary);
+      background-color: var(--primary) !important;
       color: white !important;
       position: relative;
       padding: 10px 24px !important;
@@ -768,7 +763,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  aspect-ratio: 1;
+  display: block;
 }
 
 .gallery-item:hover {
@@ -778,7 +773,7 @@
 .gallery-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   transition: transform 0.3s ease;
 }
@@ -1711,38 +1706,6 @@
     border-top: 1px solid #e0e0e0;
 }
 
-@media (max-width: 768px) {
-    .tax-benefit-info {
-        padding: 15px;
-        margin: 15px 0;
-        font-size: 0.95rem;
-    }
-
-    .contact-preference {
-        margin-top: 30px;
-        padding-top: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .tax-benefit-info {
-        padding: 12px;
-        margin: 12px 0;
-        font-size: 0.9rem;
-    }
-
-    .contact-preference {
-        margin-top: 25px;
-        padding-top: 15px;
-    }
-}
-
-.contact-preference {
-    margin-top: 40px;
-    padding-top: 30px;
-    border-top: 1px solid #e0e0e0;
-}
-
 /* Global Responsive Breakpoints */
 :root {
   --mobile-s: 320px;
@@ -2031,6 +1994,20 @@ html {
 }
 
 .nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.nav-links a.active {
+    color: var(--primary);
+    font-weight: 600;
+}
+
 .nav-links a.active::after {
     width: 100%;
 }

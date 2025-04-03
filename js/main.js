@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger-menu');
     const navLinks = document.querySelector('.nav-links');
     const sections = document.querySelectorAll('section');
+    // Select all nav links for active state highlighting (Donate style handled by CSS)
     const navAnchors = document.querySelectorAll('.nav-links a');
     const navOverlay = document.querySelector('.nav-overlay');
     const body = document.body;
@@ -51,14 +52,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Optimized smooth scrolling
     navAnchors.forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+            const href = this.getAttribute('href');
+            // Only prevent default and scroll smoothly for internal links (starting with #)
+            if (href && href.startsWith('#')) { 
+                e.preventDefault();
+                const targetElement = document.querySelector(href);
+                const headerElement = document.querySelector('.main-nav'); // Assuming .main-nav is the fixed header
+                
+                if (targetElement) {
+                    const headerHeight = headerElement ? headerElement.offsetHeight : 0;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    // Subtract header height AND an extra 15px for visual padding below header
+                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 65; 
+
+                    window.scrollTo({
+                         top: offsetPosition,
+                         behavior: 'smooth'
+                    });
+                }
+            } 
+            // For external links (like volunteer.html), let the browser handle the navigation normally.
         });
     });
 
@@ -84,27 +97,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Lazy load images
-    const lazyLoadImages = () => {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.style.backgroundImage = `url('${img.dataset.src}')`;
-                    observer.unobserve(img);
-                }
-            });
-        });
-
-        document.querySelectorAll('.gallery-item[data-src]').forEach(img => {
-            imageObserver.observe(img);
-        });
-    };
-
-    // Initialize lazy loading
-    if ('IntersectionObserver' in window) {
-        lazyLoadImages();
-    }
+    // Lazy load images (Removed - Handled by Lightbox2)
+    // const lazyLoadImages = () => {
+    //     const imageObserver = new IntersectionObserver((entries, observer) => {
+    //         entries.forEach(entry => {
+    //             if (entry.isIntersecting) {
+    //                 const img = entry.target;
+    //                 img.style.backgroundImage = `url('${img.dataset.src}')`;
+    //                 observer.unobserve(img);
+    //             }
+    //         });
+    //     });
+    //
+    //     document.querySelectorAll('.gallery-item[data-src]').forEach(img => {
+    //         imageObserver.observe(img);
+    //     });
+    // };
+    //
+    // // Initialize lazy loading (Removed)
+    // if ('IntersectionObserver' in window) {
+    //     lazyLoadImages();
+    // }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
