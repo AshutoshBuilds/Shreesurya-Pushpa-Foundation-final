@@ -39,3 +39,7 @@
 ## 2024-07-31 11:40:00 AM
 
 - Added an additional 15px offset to the smooth scroll calculation (`js/main.js`) to provide more visual padding between the fixed header and the scrolled-to section title.
+
+## 2024-07-31 11:50:00 AM
+
+- Reordered sections in `index.html`: Moved Gallery section above the Impact section.
